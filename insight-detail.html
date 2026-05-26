@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Next.js 15 ile App Router: Tam Rehber — CKR TECH</title>
+    <meta name="description" id="pageDesc" content="Server Components, Streaming ve Suspense boundary'lerinin gerçek dünya performans etkilerini inceledik.">
+    <meta name="author" content="CKR TECH">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" id="pageCanonical" href="https://ckrtech.com/insight-detail.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="CKR TECH">
+    <meta property="og:image" content="https://ckrtech.com/assets/og-cover.jpg">
+    <meta property="og:locale" content="tr_TR">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://ckrtech.com/assets/og-cover.jpg">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Mobil CMD+K Gizleme -->
+    
+    </style>
+    <!-- Mobil Menü Fix -->
+    
+    <!-- Makale detay ek stilleri -->
+    <style>
+        .article-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            transition: color 0.2s;
+        }
+        .article-back:hover { color: var(--accent); }
+        .article-back-arrow { transition: transform 0.2s; }
+        .article-back:hover .article-back-arrow { transform: translateX(-3px); }
+
+        .article-tag {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-border);
+            border-radius: 4px;
+            padding: 0.2rem 0.6rem;
+        }
+
+        .article-reading-time {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .article-date {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .author-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .author-role {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .article-share {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+        .article-share-label {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .share-btn {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            padding: 0.4rem 0.9rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .share-btn:hover {
+            border-color: var(--accent-border);
+            color: var(--accent);
+            background: var(--accent-soft);
+        }
+
+        .related-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            transition: var(--transition-slow);
+        }
+        .related-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+        }
+        .related-card-tag {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .related-card-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.4;
+            margin-bottom: 0.75rem;
+            transition: color 0.2s;
+        }
+        .related-card:hover .related-card-title { color: var(--accent); }
+        .related-card-link {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--accent);
+            transition: var(--transition);
+        }
+        .related-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        @media (min-width: 640px) { .related-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        .not-found-msg {
+            text-align: center;
+            padding: 6rem 0;
+            color: var(--text-muted);
+        }
+        .not-found-msg h1 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-primary); }
+    </style>
+</head>
+<body>
+
+<div class="loading-screen" id="loadingScreen">
+        <div class="loading-logo">
+            <span class="loading-logo-accent">CKR</span> TECH
+        </div>
+        <div class="loading-bar">
+            <div class="loading-bar-fill"></div>
+        </div>
+    </div>
+
+    <div class="grain-overlay"></div>
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Çerez izni">
+        <div class="cookie-content">
+            <p class="cookie-text">
+                Sitemizi daha iyi deneyim sunmak için çerezleri kullanıyoruz.
+                <a href="privacy-policy.html#cookies" class="cookie-link">Çerez Politikası</a>'nı inceleyebilirsiniz.
+            </p>
+            <div class="cookie-actions">
+                <button class="btn btn-secondary btn-sm" id="cookieReject">Reddet</button>
+                <button class="btn btn-primary btn-sm" id="cookieAccept">Kabul Et</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="cmd-palette" id="cmdPalette" role="dialog" aria-modal="true" aria-labelledby="cmdTitle" hidden>
+        <div class="cmd-palette-backdrop" id="cmdBackdrop"></div>
+        <div class="cmd-palette-modal">
+            <div class="cmd-palette-header">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" class="cmd-palette-input" id="cmdInput" placeholder="Komut veya bölüm ara..." autocomplete="off">
+                <kbd class="cmd-kbd">ESC</kbd>
+            </div>
+            <div class="cmd-palette-body" id="cmdBody">
+                <div class="cmd-group">
+                    <span class="cmd-group-label">Navigasyon</span>
+                    <button class="cmd-item" data-action="navigate" data-url="insights.html"><span class="cmd-icon">→</span><span class="cmd-text">Blog</span><span class="cmd-hint">insights.html</span></button>
+                    <button class="cmd-item" data-action="navigate" data-url="index.html"><span class="cmd-icon">→</span><span class="cmd-text">Ana Sayfa</span><span class="cmd-hint">index.html</span></button>
+                    <button class="cmd-item" data-action="navigate" data-url="index.html#contact"><span class="cmd-icon">→</span><span class="cmd-text">İletişim</span><span class="cmd-hint">#contact</span></button>
+                </div>
+                <div class="cmd-group">
+                    <span class="cmd-group-label">Eylem</span>
+                    <button class="cmd-item" data-action="email"><span class="cmd-icon">✉</span><span class="cmd-text">E-posta Gönder</span><span class="cmd-hint">hello@ckrtech.com</span></button>
+                    <button class="cmd-item" data-action="copy"><span class="cmd-icon">📋</span><span class="cmd-text">E-posta Adresini Kopyala</span><span class="cmd-hint">Clipboard</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header class="site-header" id="header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">CKR</span><span class="logo-accent">TECH</span>
+            </a>
+            <nav class="main-nav" id="mainNav">
+                <a href="index.html#services" class="nav-link">Hizmetler</a>
+                <a href="index.html#portfolio" class="nav-link">Portfolyo</a>
+                <a href="index.html#pricing" class="nav-link">Fiyatlandırma</a>
+                <a href="insights.html" class="nav-link">Blog</a>
+                <a href="index.html#contact" class="nav-link nav-link--cta">İletişim</a>
+                <button class="nav-kbd" id="navKbdTrigger" aria-label="Komut paleti aç"><kbd>⌘</kbd><kbd>K</kbd></button>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menü">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="articleMain">
+        <!-- İçerik JS tarafından buraya render edilir -->
+    </main>
+
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer-layout">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <span class="logo-text">CKR</span><span class="logo-accent">TECH</span>
+                    </a>
+                    <p class="footer-copy">Dijital teknoloji, yazılım ve strateji ajansı. Akhisar'dan globale.</p>
+                    <div class="footer-social">
+                        <a href="https://instagram.com/ckr.tech" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">Instagram</a>
+                        <a href="https://wa.me/905346921987" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="WhatsApp">WhatsApp</a>
+                    </div>
+                </div>
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <h4 class="footer-column-title">Hizmetler</h4>
+                        <nav class="footer-nav">
+                            <a href="index.html#services" class="footer-link">Web Geliştirme</a>
+                            <a href="index.html#services" class="footer-link">SEO & Analitik</a>
+                            <a href="index.html#services" class="footer-link">Dijital Medya</a>
+                        </nav>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-column-title">Şirket</h4>
+                        <nav class="footer-nav">
+                            <a href="index.html#vision" class="footer-link">Hakkımızda</a>
+                            <a href="index.html#team" class="footer-link">Ekip</a>
+                            <a href="insights.html" class="footer-link">Blog</a>
+                        </nav>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-column-title">Yasal</h4>
+                        <nav class="footer-nav">
+                            <a href="privacy-policy.html" class="footer-link">Gizlilik Politikası</a>
+                            <a href="terms.html" class="footer-link">KVKK Aydınlatma</a>
+                            <a href="terms.html" class="footer-link">Kullanım Koşulları</a>
+                            <a href="privacy-policy.html#cookies" class="footer-link">Çerez Politikası</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span class="footer-copyright">© 2026 CKR TECH. Tüm hakları saklıdır.</span>
+                <span class="footer-location">Akhisar, Manisa — TR</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+    // ============================================
+    // BLOG VERİ KATMANI — tüm yazılar burada
+    // Yeni yazı eklemek için bu diziye bir obje ekleyin
+    // ============================================
+    const POSTS = [
+        {
+            slug: 'nextjs-15-app-router',
+            tag: 'Teknik',
+            date: '15 Mayıs 2026',
+            title: 'Next.js 15 ile App Router: Tam Rehber',
+            excerpt: 'Server Components, Streaming ve Suspense boundary\'lerinin gerçek dünya performans etkilerini inceledik.',
+            authorInitials: 'CK',
+            authorName: 'CKR TECH Ekibi',
+            authorRole: 'Geliştirme Ekibi',
+            authorBg: 'linear-gradient(135deg, #00d4ff, #8b5cf6)',
+            content: `
+                <p>Next.js 15, App Router mimarisiyle birlikte React'ın Server Components paradigmasını tam anlamıyla hayata geçiriyor. Bu rehberde, gerçek projelerimizde elde ettiğimiz performans iyileştirmelerini ve dikkat etmeniz gereken noktaları paylaşıyoruz.</p>
+
+                <h2>Server Components Nedir, Ne İşe Yarar?</h2>
+                <p>Geleneksel React'te tüm bileşenler istemci tarafında (tarayıcıda) render edilir. Server Components ise sunucuda render edilerek HTML olarak istemciye gönderilir. Bu yaklaşımın en büyük avantajı: JavaScript bundle boyutunu önemli ölçüde küçültmek.</p>
+                <p>Bir e-ticaret projesinde bu geçişi yaptığımızda, ilk yüklemedeki JS transferini <strong>340 KB'dan 87 KB'a</strong> indirdik. Sayfa açılış süresi 3.2 saniyeden 0.8 saniyeye geriledi.</p>
+
+                <h2>Streaming ve Suspense Boundary</h2>
+                <p>App Router, sayfanın bazı bölümlerini veri hazır olmadan gösterip, asenkron bölümleri akışla doldurmanıza izin verir. Kullanıcı boş ekran yerine sayfanın iskeletini anında görür.</p>
+                <pre><code>// loading.tsx — otomatik Suspense boundary
+export default function Loading() {
+  return &lt;ProductSkeleton /&gt;
+}
+
+// page.tsx
+export default async function Page() {
+  const data = await fetchProducts() // await burada bloklamaz
+  return &lt;ProductList data={data} /&gt;
+}</code></pre>
+
+                <h2>Route Groups ile Mimari Organizasyon</h2>
+                <p>Büyük projelerde farklı layout gerektiren sayfalar için Route Groups kullanmak kodu ciddi ölçüde düzenler. Parentez içindeki klasörler URL'ye dahil edilmez.</p>
+                <pre><code>app/
+  (marketing)/
+    layout.tsx   ← pazarlama layout'u
+    page.tsx
+    blog/
+  (dashboard)/
+    layout.tsx   ← dashboard layout'u
+    settings/
+    analytics/</code></pre>
+
+                <h2>Dikkat Edilmesi Gereken Noktalar</h2>
+                <p>Server Components'te <code>useState</code>, <code>useEffect</code> ve event handler kullanamazsınız. Etkileşim gerektiren bileşenlerin başına <code>'use client'</code> direktifini eklemeniz gerekir. En iyi yaklaşım: ağaçta mümkün olduğunca derinde client boundary koymak.</p>
+
+                <blockquote>Server Components'i varsayılan kabul edin, istemci etkileşimi gerçekten gerektiğinde 'use client' ekleyin.</blockquote>
+
+                <h2>Sonuç</h2>
+                <p>Next.js 15 App Router, doğru uygulandığında performans ve geliştirici deneyimi açısından önemli kazanımlar sağlıyor. Yeni bir projeye başlıyorsanız direkt App Router ile başlamanızı öneririz. Mevcut Pages Router projenizi geçirmek için ise aşamalı geçiş mümkün.</p>
+            `,
+            related: ['core-web-vitals-2026', 'kucuk-isletmeler-dijital-donusum']
+        },
+        {
+            slug: 'core-web-vitals-2026',
+            tag: 'SEO',
+            date: '02 Mayıs 2026',
+            title: 'Core Web Vitals ve Sıralama: 2026 Güncellemesi',
+            excerpt: 'INP metriğinin LCP ve CLS ile birlikte nasıl değerlendirildiğini ve optimize stratejilerini açıklıyoruz.',
+            authorInitials: 'CK',
+            authorName: 'CKR TECH Ekibi',
+            authorRole: 'SEO & Performans Ekibi',
+            authorBg: 'linear-gradient(135deg, #f59e0b, #ef4444)',
+            content: `
+                <p>Google, 2024'te FID'i (First Input Delay) tamamen kaldırıp yerine INP'yi (Interaction to Next Paint) getirdi. 2026'ya geldiğimizde INP, sıralama faktörleri arasında çok daha belirleyici bir rol oynuyor. Bu yazıda güncel durumu ve aksiyon planını paylaşıyoruz.</p>
+
+                <h2>INP Nedir ve Neden Önemli?</h2>
+                <p>INP, kullanıcının bir sayfayla yaptığı tüm etkileşimleri (tıklama, dokunma, klavye) ölçer ve en yavaş olanını raporlar. FID yalnızca ilk etkileşimi ölçerken INP, sayfa boyunca tüm etkileşimleri kapsar. Bu nedenle çok daha gerçekçi bir metrik.</p>
+                <p><strong>Hedef değer:</strong> 200ms altı "İyi", 200–500ms arası "İyileştirme Gerekiyor", 500ms üstü "Kötü".</p>
+
+                <h2>INP Optimizasyon Stratejileri</h2>
+                <p>Birlikte çalıştığımız projelerde INP değerini düşürmek için en etkili teknikler şunlar oldu:</p>
+                <ul>
+                    <li><strong>Uzun görevleri parçalayın:</strong> 50ms'yi aşan JS görevlerini <code>scheduler.yield()</code> veya <code>setTimeout</code> ile bölerek main thread'i serbest bırakın.</li>
+                    <li><strong>React hydration'ı geciktirin:</strong> Kritik olmayan bileşenleri lazy load edin, <code>Suspense</code> ile arka plana alın.</li>
+                    <li><strong>Event handler optimizasyonu:</strong> Scroll ve resize event'lerinde debounce/throttle kullanın.</li>
+                    <li><strong>Third-party script'leri denetleyin:</strong> Chat widget'ları ve reklam scriptleri INP'yi ciddi ölçüde bozabilir.</li>
+                </ul>
+
+                <h2>LCP: 2026'da Hâlâ Kral</h2>
+                <p>LCP (Largest Contentful Paint) hedefi 2.5 saniye altı. Hero görseller için mutlaka <code>fetchpriority="high"</code> ve <code>loading="eager"</code> kombinasyonunu kullanın. WebP/AVIF formatına geçmek yeterince önceliklendirilmediği projelerde LCP'yi ortalama 1.1 saniye iyileştirdi.</p>
+
+                <h2>CLS: Görünmez Ama Güçlü</h2>
+                <p>Cumulative Layout Shift için temel kural: boyutu önceden bilinmeyen hiçbir element sayfa akışına girmemeli. Görsellere <code>width</code> ve <code>height</code> attribute eklemek, font swap için <code>font-display: optional</code> kullanmak ve reklam alanlarına sabit yükseklik rezerve etmek en etkili çözümler.</p>
+
+                <blockquote>Core Web Vitals tek başına sıralamayı belirlemez ama eşit kaliteli iki içerikten biri iyi vitals'a sahipse o sayfa kazanır.</blockquote>
+
+                <h2>Ölçüm Araçları</h2>
+                <p>PageSpeed Insights ve Chrome UX Report (CrUX) gerçek kullanıcı verilerini gösterir. Lab ortamı için Lighthouse yeterli ama field data'yı asla göz ardı etmeyin. Search Console'daki "Core Web Vitals" raporu URL bazında sorunları toplu görmenin en pratik yolu.</p>
+            `,
+            related: ['nextjs-15-app-router', 'kucuk-isletmeler-dijital-donusum']
+        },
+        {
+            slug: 'kucuk-isletmeler-dijital-donusum',
+            tag: 'Strateji',
+            date: '18 Nisan 2026',
+            title: 'Küçük İşletmeler İçin Dijital Dönüşüm Rehberi',
+            excerpt: 'Sınırlı bütçeyle maksimum etki yaratan dijital stratejiler ve araç önerileri.',
+            authorInitials: 'CK',
+            authorName: 'CKR TECH Ekibi',
+            authorRole: 'Strateji Ekibi',
+            authorBg: 'linear-gradient(135deg, #10b981, #06b6d4)',
+            content: `
+                <p>40'ı aşkın proje deneyimimizde en çok karşılaştığımız senaryo şu: Küçük işletme, dijital dönüşüm yapmak istiyor ama nereden başlayacağını bilmiyor. Bu rehber, o soruya pratik ve uygulanabilir bir yanıt vermek için yazıldı.</p>
+
+                <h2>Adım 1: Temel Dijital Altyapıyı Oturun</h2>
+                <p>Büyük adımlar atmadan önce temelin sağlam olması gerekiyor. Çoğu işletmenin atladığı ama kritik olan üç şey:</p>
+                <ul>
+                    <li><strong>Google Business Profile'ı doldurun ve doğrulayın.</strong> Ücretsiz ama etkisi büyük. Yerel aramalarda görünürlük için zorunlu.</li>
+                    <li><strong>SSL sertifikanızı kontrol edin.</strong> HTTPS olmayan bir site artık hem SEO hem güven açısından engel.</li>
+                    <li><strong>Mobil uyumluluğu test edin.</strong> Türkiye'deki web trafiğinin %70'i mobil. Mobil deneyim kötüyse diğer her şey ikincil kalır.</li>
+                </ul>
+
+                <h2>Adım 2: Hangi Kanala Önce Yatırım Yapmalısınız?</h2>
+                <p>Her işletme için farklı ama genel olarak öncelik sırası şöyle oluşuyor:</p>
+                <ul>
+                    <li><strong>Web sitesi + temel SEO:</strong> Uzun vadeli, sürdürülebilir trafik kaynağı. ROI en yüksek kanal.</li>
+                    <li><strong>Google Ads (arama):</strong> Hızlı görünürlük gerekiyorsa. Bütçe bitince durur, organize edin.</li>
+                    <li><strong>Sosyal medya:</strong> Marka bilinirliği için iyi ama satış dönüşümü düşük. Organik içerikle başlayın.</li>
+                    <li><strong>E-posta pazarlama:</strong> Mevcut müşteri tabanınız varsa en yüksek ROI'li kanal.</li>
+                </ul>
+
+                <h2>Adım 3: Araçları Doğru Seçin</h2>
+                <p>Pahalı araçlara para harcamadan önce ücretsiz alternatifleri değerlendirin:</p>
+                <ul>
+                    <li><strong>Google Analytics 4 + Search Console:</strong> Trafik ve SEO verisi için ücretsize alternatif yok.</li>
+                    <li><strong>Canva:</strong> Grafik tasarım için Photoshop'a gerek yok.</li>
+                    <li><strong>Notion veya Trello:</strong> Dijital strateji takviminizi organize edin.</li>
+                    <li><strong>Mailchimp (ücretsiz plan):</strong> 500 aboneye kadar ücretsiz, e-posta otomasyonu için yeterli.</li>
+                </ul>
+
+                <h2>Adım 4: İçerik Stratejisi — En Küçük Birimden Başlayın</h2>
+                <p>Blog yazıları, video, podcast... bunların hepsi farklı kaynaklar gerektiriyor. Küçük işletmeler için önerimiz: önce müşterilerin en çok sorduğu 5 soruyu belirleyin, her birine bir sayfa veya yazı yazın. Bu "answer engine" yaklaşımı hem SEO'ya hem müşteri ilişkisine doğrudan katkı sağlar.</p>
+
+                <blockquote>Dijital dönüşüm tek seferlik bir proje değil, sürekli bir süreç. Mükemmeli beklemek yerine "yeterince iyi"yle başlayın ve iterasyon yapın.</blockquote>
+
+                <h2>Ne Zaman Ajans Desteği Almalısınız?</h2>
+                <p>Kendi başınıza yönetebileceğiniz noktanın ötesine geçtiğinizde: teknik SEO sorunları, büyük web geliştirme ihtiyaçları ve stratejik yeniden konumlanma için uzman desteği almak mantıklı. Bütçe kısıtlıysa danışmanlık + kendi uygulamanız modeli iyi bir orta yol.</p>
+            `,
+            related: ['nextjs-15-app-router', 'core-web-vitals-2026']
+        }
+    ];
+
+    // ============================================
+    // RENDER MOTORU
+    // ============================================
+    function getPost(slug) {
+        return POSTS.find(p => p.slug === slug) || null;
+    }
+
+    function getRelatedPosts(slugs) {
+        return slugs.map(s => POSTS.find(p => p.slug === s)).filter(Boolean);
+    }
+
+    function estimateReadTime(html) {
+        const text = html.replace(/<[^>]*>/g, ' ');
+        const words = text.trim().split(/\s+/).length;
+        return Math.ceil(words / 200);
+    }
+
+    function renderPost(post) {
+        const readTime = estimateReadTime(post.content);
+        const related = getRelatedPosts(post.related || []);
+
+        // Meta güncelle
+        document.title = post.title + ' — CKR TECH';
+        document.querySelector('meta[name="description"]').content = post.excerpt;
+
+        const relatedHTML = related.length > 0 ? `
+            <div class="related-posts">
+                <h2 class="related-title">İlgili Yazılar</h2>
+                <div class="related-grid">
+                    ${related.map(r => `
+                        <a href="insight-detail.html?slug=${r.slug}" class="related-card" style="display:block;text-decoration:none;">
+                            <p class="related-card-tag">${r.tag}</p>
+                            <h3 class="related-card-title">${r.title}</h3>
+                            <span class="related-card-link">Devamını Oku →</span>
+                        </a>
+                    `).join('')}
+                </div>
+            </div>
+        ` : '';
+
+        document.getElementById('articleMain').innerHTML = `
+            <div class="article-layout">
+                <a href="insights.html" class="article-back">
+                    <span class="article-back-arrow">←</span> Blog'a Dön
+                </a>
+
+                <article>
+                    <header class="article-header">
+                        <div class="article-meta-row">
+                            <span class="article-tag">${post.tag}</span>
+                            <span class="article-date">${post.date}</span>
+                            <span class="article-reading-time" id="readingTime">${readTime} dk okuma</span>
+                        </div>
+
+                        <h1 class="article-title">${post.title}</h1>
+
+                        <div class="article-author">
+                            <div class="author-avatar" style="background: ${post.authorBg};">${post.authorInitials}</div>
+                            <div>
+                                <p class="author-name">${post.authorName}</p>
+                                <p class="author-role">${post.authorRole}</p>
+                            </div>
+                        </div>
+                    </header>
+
+                    <div class="article-content">
+                        ${post.content}
+                    </div>
+
+                    <div class="article-share">
+                        <span class="article-share-label">Paylaş:</span>
+                        <button class="share-btn" id="copyUrlBtn">Linki Kopyala</button>
+                        <a href="https://wa.me/?text=${encodeURIComponent(post.title + ' — ' + window.location.href)}" target="_blank" rel="noopener noreferrer" class="share-btn">WhatsApp</a>
+                    </div>
+                </article>
+
+                ${relatedHTML}
+            </div>
+        `;
+
+        // Link kopyalama
+        document.getElementById('copyUrlBtn').addEventListener('click', function() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                this.textContent = 'Kopyalandı ✓';
+                setTimeout(() => { this.textContent = 'Linki Kopyala'; }, 2000);
+            });
+        });
+    }
+
+    function renderNotFound() {
+        document.getElementById('articleMain').innerHTML = `
+            <div class="not-found-msg">
+                <h1>Yazı Bulunamadı</h1>
+                <p style="margin-bottom:2rem;">Aradığınız blog yazısı mevcut değil veya taşınmış olabilir.</p>
+                <a href="insights.html" class="btn btn-primary">Blog'a Dön</a>
+            </div>
+        `;
+    }
+
+    // Slug'ı URL'den al
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get('slug');
+
+    if (slug) {
+        const post = getPost(slug);
+        if (post) {
+            renderPost(post);
+        } else {
+            renderNotFound();
+        }
+    } else {
+        // Slug yoksa ilk yazıyı göster (geriye dönük uyumluluk)
+        renderPost(POSTS[0]);
+    }
+    </script>
+</body>
+</html>

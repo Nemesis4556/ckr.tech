@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CKR TECH — Dijital Teknoloji Ajansı | Web, SEO, Strateji</title>
+    <meta name="description" content="CKR TECH | Web Geliştirme, SEO ve Dijital Strateji. Akhisar'dan globale. 40+ proje, 15+ aktif müşteri.">
+    <meta name="keywords" content="web geliştirme, SEO, dijital medya, yazılım ajansı, Akhisar, Manisa, Next.js, React">
+    <meta name="author" content="CKR TECH">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://ckrtech.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" as="style">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ckrtech.com">
+    <meta property="og:title" content="CKR TECH — Dijital Teknoloji Ajansı">
+    <meta property="og:description" content="Web Geliştirme, SEO ve Dijital Strateji. Akhisar'dan globale uzanan teknoloji ağı.">
+    <meta property="og:image" content="https://ckrtech.com/assets/og-cover.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="tr_TR">
+    <meta property="og:site_name" content="CKR TECH">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://ckrtech.com">
+    <meta name="twitter:title" content="CKR TECH">
+    <meta name="twitter:description" content="Dijital teknoloji, yazılım ve strateji ajansı.">
+    <meta name="twitter:image" content="https://ckrtech.com/assets/og-cover.jpg">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="msapplication-TileColor" content="#0a0a0a">
+    <link rel="stylesheet" href="styles.css">
+    <script type="application/ld+json">
+ {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "CKR TECH",
+  "image": "https://ckrtech.com/assets/og-cover.jpg",
+  "description": "Web Geliştirme, SEO ve Dijital Strateji. Akhisar'dan globale uzanan teknoloji ağı.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Akhisar",
+    "addressRegion": "Manisa",
+    "addressCountry": "TR"
+  },
+  "url": "https://ckrtech.com",
+  "telephone": "+905346921987",
+  "priceRange": "$$"
+ }
+</script>
+    <!-- Mobil Menü Kayma Fix -->
+    <style>
+        
+            .main-nav {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 100vh !important;
+                height: 100dvh !important;
+                background: var(--bg-primary, #0a0a0a) !important;
+                z-index: 998 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 1.5rem !important;
+                transform: translateX(-100%) !important;
+                transition: transform 0.35s cubic-bezier(.4,0,.2,1) !important;
+                padding: 2rem !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                pointer-events: auto !important;
+                margin: 0 !important;
+                border: none !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+            }
+
+            #mainNav.nav-open {
+                transform: translateX(0) !important;
+            }
+            .main-nav .nav-link {
+                font-size: 1.5rem !important;
+                opacity: 1 !important;
+                transform: none !important;
+                margin: 0 !important;
+            }
+            .main-nav .nav-link--cta {
+                margin-top: 1rem !important;
+            }
+            .menu-toggle {
+                z-index: 999 !important;
+                position: relative !important;
+            }
+
+            body.nav-open {
+                overflow: hidden !important;
+            }
+        
+    </style>
+
+
+</head>
+<body>
+
+<div class="loading-screen" id="loadingScreen">
+        <div class="loading-logo">
+            <span class="loading-logo-accent">CKR</span> TECH
+        </div>
+        <div class="loading-bar">
+            <div class="loading-bar-fill"></div>
+        </div>
+    </div>
+
+    <div class="grain-overlay"></div>
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Çerez izni">
+        <div class="cookie-content">
+            <p class="cookie-text">
+                Sitemizi daha iyi deneyim sunmak için çerezleri kullanıyoruz. 
+                <a href="privacy-policy.html#cookies" class="cookie-link">Çerez Politikası</a>'nı inceleyebilirsiniz.
+            </p>
+            <div class="cookie-actions">
+                <button class="btn btn-secondary btn-sm" id="cookieReject">Reddet</button>
+                <button class="btn btn-primary btn-sm" id="cookieAccept">Kabul Et</button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="section-navigator" id="sectionNavigator" aria-label="Bölüm navigasyonu">
+        <a href="#hero" class="section-dot active" data-section="hero" aria-label="Hero"></a>
+        <a href="#clients" class="section-dot" data-section="clients" aria-label="Müşteriler"></a>
+        <a href="#services" class="section-dot" data-section="services" aria-label="Hizmetler"></a>
+        <a href="#portfolio" class="section-dot" data-section="portfolio" aria-label="Portfolyo"></a>
+        <a href="#vision" class="section-dot" data-section="vision" aria-label="Vizyon"></a>
+        <a href="#process" class="section-dot" data-section="process" aria-label="Süreç"></a>
+        <a href="#team" class="section-dot" data-section="team" aria-label="Ekip"></a>
+        <a href="#pricing" class="section-dot" data-section="pricing" aria-label="Fiyatlandırma"></a>
+        <a href="#testimonials" class="section-dot" data-section="testimonials" aria-label="Referanslar"></a>
+        <a href="#insights" class="section-dot" data-section="insights" aria-label="Blog"></a>
+        <a href="#faq" class="section-dot" data-section="faq" aria-label="SSS"></a>
+        <a href="#contact" class="section-dot" data-section="contact" aria-label="İletişim"></a>
+    </nav>
+
+    <div class="cmd-palette" id="cmdPalette" role="dialog" aria-modal="true" aria-labelledby="cmdTitle" hidden>
+        <div class="cmd-palette-backdrop" id="cmdBackdrop"></div>
+        <div class="cmd-palette-modal">
+            <div class="cmd-palette-header">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" class="cmd-palette-input" id="cmdInput" placeholder="Komut veya bölüm ara..." autocomplete="off">
+                <kbd class="cmd-kbd">ESC</kbd>
+            </div>
+            <div class="cmd-palette-body" id="cmdBody">
+                <div class="cmd-group">
+                    <span class="cmd-group-label">Navigasyon</span>
+                    <button class="cmd-item" data-action="scroll" data-target="#services">
+                        <span class="cmd-icon">→</span>
+                        <span class="cmd-text">Hizmetlere Git</span>
+                        <span class="cmd-hint">#services</span>
+                    </button>
+                    <button class="cmd-item" data-action="scroll" data-target="#portfolio">
+                        <span class="cmd-icon">→</span>
+                        <span class="cmd-text">Portfolyo</span>
+                        <span class="cmd-hint">#portfolio</span>
+                    </button>
+                    <button class="cmd-item" data-action="scroll" data-target="#pricing">
+                        <span class="cmd-icon">→</span>
+                        <span class="cmd-text">Fiyatlandırma</span>
+                        <span class="cmd-hint">#pricing</span>
+                    </button>
+                    <button class="cmd-item" data-action="scroll" data-target="#contact">
+                        <span class="cmd-icon">→</span>
+                        <span class="cmd-text">İletişim</span>
+                        <span class="cmd-hint">#contact</span>
+                    </button>
+                    <button class="cmd-item" data-action="navigate" data-url="insights.html">
+                        <span class="cmd-icon">→</span>
+                        <span class="cmd-text">Blog</span>
+                        <span class="cmd-hint">insights.html</span>
+                    </button>
+                </div>
+                <div class="cmd-group">
+                    <span class="cmd-group-label">Eylem</span>
+                    <button class="cmd-item" data-action="email">
+                        <span class="cmd-icon">✉</span>
+                        <span class="cmd-text">E-posta Gönder</span>
+                        <span class="cmd-hint">hello@ckrtech.com</span>
+                    </button>
+                    <button class="cmd-item" data-action="whatsapp">
+                        <span class="cmd-icon">💬</span>
+                        <span class="cmd-text">WhatsApp Aç</span>
+                        <span class="cmd-hint">+90 534 692 1987</span>
+                    </button>
+                    <button class="cmd-item" data-action="copy">
+                        <span class="cmd-icon">📋</span>
+                        <span class="cmd-text">E-posta Adresini Kopyala</span>
+                        <span class="cmd-hint">Clipboard</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header class="site-header" id="header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">CKR</span><span class="logo-accent">TECH</span>
+            </a>
+
+            <nav class="main-nav" id="mainNav">
+                <a href="index.html#services" class="nav-link">Hizmetler</a>
+                <a href="index.html#portfolio" class="nav-link">Portfolyo</a>
+                <a href="index.html#pricing" class="nav-link">Fiyatlandırma</a>
+                <a href="insights.html" class="nav-link">Blog</a>
+                <a href="index.html#contact" class="nav-link nav-link--cta">İletişim</a>
+                <button class="nav-kbd" id="navKbdTrigger" aria-label="Komut paleti aç">
+                    <kbd>⌘</kbd><kbd>K</kbd>
+                </button>
+            </nav>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Menü">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <section class="hero" id="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <p class="hero-eyebrow">Akhisar — Global</p>
+                <h1 class="hero-title">
+                    Dijital ürünleri<br>
+                    <span class="text-accent">stratejiyle</span> inşa ederiz.
+                </h1>
+                <p class="hero-desc">
+                    CKR TECH, markaların dijital evrende güçlü bir yer edinmesi için 
+                    web teknolojileri, SEO ve medya stratejileri geliştirir.
+                </p>
+                <div class="hero-actions">
+                    <a href="#services" class="btn btn-primary">Hizmetleri İncele</a>
+                    <a href="#contact" class="btn btn-secondary">Proje Başlat</a>
+                </div>
+            </div>
+
+            <div class="hero-meta">
+                <div class="meta-item">
+                    <span class="meta-number" data-count="40">0</span>
+                    <span class="meta-label">Tamamlanan Proje</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-number" data-count="3">0</span>
+                    <span class="meta-label">Çekirdek Modül</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-number" data-count="100" data-suffix="%">0</span>
+                    <span class="meta-label">Müşteri Odaklı</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-scroll">
+            <span class="scroll-line"></span>
+        </div>
+    </section>
+
+    <section class="clients" id="clients">
+        <div class="container">
+            <p class="clients-eyebrow">Güvenilen ortaklar</p>
+            <div class="clients-grid">
+                <div class="client-logo" title="Luxe Commerce"><span class="client-name">Öz Ünlü Yangın</span></div>
+                <div class="client-logo" title="Atlas Holding"><span class="client-name">Bahar Yapı Dekorasyon</span></div>
+                <div class="client-logo" title="FinDash"><span class="client-name">Demet Kostüm</span></div>
+                <div class="client-logo" title="Merkez Bankası"><span class="client-name">Koyunlu Elektrik</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-eyebrow">Çekirdek Modüller</span>
+                <h2 class="section-title">Uzmanlık alanlarımız</h2>
+                <p class="section-desc">
+                    Her projeye özel çözümler üretiyor, teknolojiyi iş stratejinizin 
+                    bir parçası haline getiriyoruz.
+                </p>
+            </div>
+
+            <div class="services-grid">
+                <article class="service-card">
+                    <div class="service-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    </div>
+                    <h3 class="service-title">Web Geliştirme</h3>
+                    <p class="service-text">
+                        React, Next.js ve modern altyapılarla hızlı, ölçeklenebilir 
+                        ve SEO dostu web uygulamaları geliştiriyoruz.
+                    </p>
+                    <ul class="service-list">
+                        <li>Frontend & Backend</li>
+                        <li>CMS Entegrasyonu</li>
+                        <li>Performans Optimizasyonu</li>
+                    </ul>
+                    <a href="#contact" class="service-link">Detaylı Bilgi →</a>
+                </article>
+
+                <article class="service-card">
+                    <div class="service-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </div>
+                    <h3 class="service-title">SEO & Analitik</h3>
+                    <p class="service-text">
+                        Veriye dayalı stratejilerle organik görünürlüğünüzü artırıyor, 
+                        teknik altyapınızı arama motorlarına hazır hale getiriyoruz.
+                    </p>
+                    <ul class="service-list">
+                        <li>Teknik SEO</li>
+                        <li>İçerik Stratejisi</li>
+                        <li>Dönüşüm Takibi</li>
+                    </ul>
+                    <a href="#contact" class="service-link">Detaylı Bilgi →</a>
+                </article>
+
+                <article class="service-card">
+                    <div class="service-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    </div>
+                    <h3 class="service-title">Dijital Medya</h3>
+                    <p class="service-text">
+                        Markanızın dijital kimliğini oluşturuyor, hedef kitlenizle 
+                        anlamlı bağlar kuracak içerik ve stratejiler üretiyoruz.
+                    </p>
+                    <ul class="service-list">
+                        <li>Sosyal Medya Yönetimi</li>
+                        <li>İçerik Üretimi</li>
+                        <li>Marka Stratejisi</li>
+                    </ul>
+                    <a href="#contact" class="service-link">Detaylı Bilgi →</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-eyebrow">Seçilmiş Çalışmalar</span>
+                <h2 class="section-title">Portfolyo</h2>
+                <p class="section-desc">
+                    Gerçek projeler, gerçek sonuçlar. Her biri strateji, tasarım ve 
+                    teknolojinin birleşimi.
+                </p>
+            </div>
+
+            <div class="portfolio-filters">
+                <button class="filter-btn active" data-filter="all">Tümü</button>
+                <button class="filter-btn" data-filter="web">Web</button>
+                <button class="filter-btn" data-filter="seo">SEO</button>
+                <button class="filter-btn" data-filter="media">Medya</button>
+            </div>
+
+<div class="portfolio-grid">
+    <article class="portfolio-item portfolio-item--large" data-category="web">
+        <div class="portfolio-image">
+            <img src="assets/projects/oz-unlu.jpg" loading="lazy" alt="Öz Ünlü Yangın Dijital Dönüşüm" class="portfolio-img lqip-blur" onload="this.classList.remove('lqip-blur')">
+            <div class="portfolio-overlay">
+                <span class="portfolio-tag">Web & SEO</span>
+                <h3 class="portfolio-title">Öz Ünlü Yangın</h3>
+                <p class="portfolio-category">Dijital Dönüşüm • Arama Motoru Optimizasyonu</p>
+                <div class="portfolio-metrics">
+                    <span class="metric">Yüksek Performans</span>
+                    <span class="metric">Tam Mobil Uyumluluk</span>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article class="portfolio-item" data-category="media">
+        <div class="portfolio-image">
+            <img src="assets/projects/bahar-yapi.jpg" loading="lazy" alt="Bahar Yapı Dekorasyon Kurumsal Kimlik" class="portfolio-img lqip-blur" onload="this.classList.remove('lqip-blur')">
+            <div class="portfolio-overlay">
+                <span class="portfolio-tag">Marka Kimliği</span>
+                <h3 class="portfolio-title">Bahar Yapı Dekorasyon</h3>
+                <p class="portfolio-category">Kurumsal Logo • Sosyal Medya Tasarımı</p>
+                <div class="portfolio-metrics">
+                    <span class="metric">Modern Çizgiler</span>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article class="portfolio-item" data-category="web">
+        <div class="portfolio-image">
+            <img src="assets/projects/demet-kostum.jpg" loading="lazy" alt="Demet Kostüm Web Projesi" class="portfolio-img lqip-blur" onload="this.classList.remove('lqip-blur')">
+            <div class="portfolio-overlay">
+                <span class="portfolio-tag">E-Ticaret / Web</span>
+                <h3 class="portfolio-title">Demet Kostüm</h3>
+                <p class="portfolio-category">İçerik Stratejisi • Organik Büyüme</p>
+                <div class="portfolio-metrics">
+                    <span class="metric">Kullanıcı Odaklı</span>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article class="portfolio-item portfolio-item--wide" data-category="web">
+        <div class="portfolio-image">
+            <img src="assets/projects/koyunlu-elektrik.jpg" loading="lazy" alt="Koyunlu Elektrik Web Altyapısı" class="portfolio-img lqip-blur" onload="this.classList.remove('lqip-blur')">
+            <div class="portfolio-overlay">
+                <span class="portfolio-tag">Kurumsal Web</span>
+                <h3 class="portfolio-title">Koyunlu Elektrik</h3>
+                <p class="portfolio-category">Hızlı Altyapı • Dönüşüm Optimizasyonu</p>
+                <div class="portfolio-metrics">
+                    <span class="metric">Gelişmiş UX</span>
+                    <span class="metric">Hızlı Yükleme Süresi</span>
+                </div>
+            </div>
+        </div>
+    </article>
+</div>
+        </div>
+    </section>
+
+    <section class="vision" id="vision">
+        <div class="container">
+            <div class="vision-layout">
+                <div class="vision-content">
+                    <span class="section-eyebrow">Vizyon</span>
+                    <h2 class="section-title">Akhisar'dan<br>Tüm Türkiyeye uzanan bir<br>teknoloji ağı.</h2>
+                    <p class="vision-text">
+                        CKR TECH, yerel bir girişim olarak başlayıp kısa sürede 
+                        ulusal projelere imza atan bir dijital ajans. 
+                        Amacımız, Anadolu'nun yeteneklerini küresel ölçekte kanıtlamak 
+                        ve her büyüklükteki işletmeye dünya standartlarında dijital 
+                        altyapılar sunmak.
+                    </p>
+                    <p class="vision-text">
+                        İnanıyoruz ki iyi yazılım sadece kod değil, aynı zamanda 
+                        iş stratejisidir. Her satır kod, müşterimizin büyümesine 
+                        hizmet eder.
+                    </p>
+                    <div class="vision-stats">
+                        <div class="v-stat">
+                            <span class="v-stat-num">2024</span>
+                            <span class="v-stat-label">Kuruluş</span>
+                        </div>
+                        <div class="v-stat">
+                            <span class="v-stat-num">15+</span>
+                            <span class="v-stat-label">Aktif Müşteri</span>
+                        </div>
+                        <div class="v-stat">
+                            <span class="v-stat-num">∞</span>
+                            <span class="v-stat-label">Büyüme Hedefi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vision-visual">
+                    <div class="vision-card">
+                        <div class="vision-card-header">
+                            <span class="v-dot"></span>
+                            <span class="v-status">Sistem Aktif</span>
+                        </div>
+                        <div class="vision-card-body">
+                            <div class="v-line"><span class="v-label">Node</span><span class="v-value">akhisar_01</span></div>
+                            <div class="v-line"><span class="v-label">Status</span><span class="v-value v-value--ok">ONLINE</span></div>
+                            <div class="v-line"><span class="v-label">Uptime</span><span class="v-value" id="uptime">99.9%</span></div>
+                            <div class="v-line"><span class="v-label">Latency</span><span class="v-value" id="latency">12ms</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="process" id="process">
+        <div class="container">
+            <div class="section-header section-header--center">
+                <span class="section-eyebrow">Süreç</span>
+                <h2 class="section-title">Nasıl çalışırız?</h2>
+            </div>
+
+            <div class="process-grid">
+                <div class="process-step">
+                    <span class="process-num">01</span>
+                    <h3 class="process-title">Keşif</h3>
+                    <p class="process-text">İhtiyaçlarınızı, hedef kitlenizi ve rakip analizini detaylıca inceleriz.</p>
+                </div>
+                <div class="process-step">
+                    <span class="process-num">02</span>
+                    <h3 class="process-title">Strateji</h3>
+                    <p class="process-text">Teknik mimariyi ve içerik yol haritasını birlikte oluştururuz.</p>
+                </div>
+                <div class="process-step">
+                    <span class="process-num">03</span>
+                    <h3 class="process-title">Geliştirme</h3>
+                    <p class="process-text">Agile prensiplerle iteratif geliştirme, sürekli test ve geri bildirim.</p>
+                </div>
+                <div class="process-step">
+                    <span class="process-num">04</span>
+                    <h3 class="process-title">Lansman</h3>
+                    <p class="process-text">Canlıya alma, performans izleme ve sürekli destek.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="team" id="team">
+        <div class="container">
+            <div class="section-header section-header--center">
+                <span class="section-eyebrow">Ekip</span>
+                <h2 class="section-title">Takımımızla tanışın</h2>
+                <p class="section-desc">Tutkulu ve sonuç odaklı bir geliştirici.</p>
+            </div>
+
+            <div class="team-grid team-grid--single">
+                <article class="team-card team-card--featured">
+                    <div class="team-avatar" style="background: linear-gradient(135deg, #00d4ff, #0066ff);">SÇ</div>
+                    <h3 class="team-name">Süleyman Çakır</h3>
+                    <p class="team-role">Kurucu & Full-Stack Geliştirici</p>
+                    <p class="team-bio">Dijital dünyada başarı, geçmişin hantal alışkanlıklarıyla değil; çevik, modern ve güvenli mimarilerle elde edilir. Kusursuz bir dijital deneyim için <strong>'mobil öncelikli' (mobile-first)</strong> tasarım anlayışını mottomuz olarak benimsiyor; projelerimizi ileri seviye siber güvenlik prensipleriyle baştan aşağı sağlamlaştırıyoruz. Akhisar merkezli ofisimizden, işletmelerin dijital dönüşüm süreçlerine sadece bir ajans olarak değil, doğrudan yeni nesil bir teknoloji ortağı olarak liderlik ediyor</p>
+                    <div class="team-social">
+                        <a href="https://instagram.com/slmn_ckr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">IG</a>
+                        <a href="https://wa.me/905346921987" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">WA</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header section-header--center">
+                <span class="section-eyebrow">Fiyatlandırma</span>
+                <h2 class="section-title">Şeffaf ve net paketler</h2>
+                <p class="section-desc">Her bütçeye ve ihtiyaca uygun çözümler. Gizli maliyet yok.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <article class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 class="pricing-name">Starter</h3>
+                        <p class="pricing-desc">Küçük işletmeler ve startup'lar için</p>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="price-amount">₺7.000</span>
+                        <span class="price-period">/proje</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>5 sayfalık kurumsal site</li>
+                        <li>Mobil uyumlu tasarım</li>
+                        <li>Temel SEO kurulumu</li>
+                        <li>1 ay destek</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary btn-full">Teklif Al</a>
+                </article>
+
+                <article class="pricing-card pricing-card--featured">
+                    <div class="pricing-badge">En Popüler</div>
+                    <div class="pricing-header">
+                        <h3 class="pricing-name">Growth</h3>
+                        <p class="pricing-desc">Büyüyen markalar için kapsamlı çözüm</p>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="price-amount">₺20.000</span>
+                        <span class="price-period">/proje</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>10+ sayfalık özel tasarım</li>
+                        <li>Next.js / React altyapı</li>
+                        <li>CMS entegrasyonu</li>
+                        <li>Teknik SEO + İçerik stratejisi</li>
+                        <li>3 ay destek</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary btn-full">Teklif Al</a>
+                </article>
+
+                <article class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 class="pricing-name">Enterprise</h3>
+                        <p class="pricing-desc">Kurumsal ölçekli projeler için</p>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="price-amount">Özel</span>
+                        <span class="price-period">fiyatlandırma</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Tam özelleştirme</li>
+                        <li>E-ticaret / SaaS platformu</li>
+                        <li>DevOps & CI/CD</li>
+                        <li>7/24 Destek SLA</li>
+                        <li>Özel entegrasyonlar</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary btn-full">İletişime Geç</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header section-header--center">
+                <span class="section-eyebrow">Referanslar</span>
+                <h2 class="section-title">Müşterilerimiz ne diyor?</h2>
+            </div>
+
+            <div class="testimonials-grid">
+                <blockquote class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-quote">"Yeni web projemiz ve kurgulanan içerik stratejisi sayesinde organik aramalarda görünürlüğümüz ciddi ölçüde arttı. Kullanıcı odaklı ve çok temiz bir arayüz oldu."</p>
+                    <footer class="testimonial-author">
+                        <div class="testimonial-avatar" style="background: linear-gradient(135deg, #00d4ff, #8b5cf6);">NÇ</div>
+                        <div class="testimonial-info">
+                            <span class="testimonial-name">Nesrin Çınarlıer</span>
+                            <span class="testimonial-role">Demet Kostüm</span>
+                        </div>
+                    </footer>
+                </blockquote>
+
+                <blockquote class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-quote">"Kurumsal web sitemizin yüklenme hızı ve gelişmiş UX yapısı tam istediğimiz prestiji yansıtıyor. Teknik altyapısı son derece stabil ve pürüzsüz çalışıyor."</p>
+                    <footer class="testimonial-author">
+                        <div class="testimonial-avatar" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">EK</div>
+                        <div class="testimonial-info">
+                            <span class="testimonial-name">Erdem Koyunlu</span>
+                            <span class="testimonial-role">Koyunlu Elektrik</span>
+                        </div>
+                    </footer>
+                </blockquote>
+
+                <blockquote class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-quote">"Kurumsal logo çalışmamız ve sosyal medya şablonlarımız için tam hayal ettiğimiz modern çizgileri yakaladık. Dijital kimliğimiz tamamen profesyonel bir seviyeye taşındı."</p>
+                    <footer class="testimonial-author">
+                        <div class="testimonial-avatar" style="background: linear-gradient(135deg, #10b981, #06b6d4);">OB</div>
+                        <div class="testimonial-info">
+                            <span class="testimonial-name">Oğulcan Bahar</span>
+                            <span class="testimonial-role">Bahar Yapı Dekorasyon</span>
+                        </div>
+                    </footer>
+                </blockquote>
+            </div>
+        </div>
+    </section>
+
+    <section class="insights" id="insights">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-eyebrow">Insights</span>
+                <h2 class="section-title">Son yazılar</h2>
+                <p class="section-desc">Teknoloji, SEO ve dijital strateji üzerine düşüncelerimiz.</p>
+            </div>
+
+<div class="insights-grid">
+    <article class="insight-card">
+        <div class="insight-meta">
+            <span class="insight-tag">Teknik</span>
+            <span class="insight-date">15 May 2026</span>
+        </div>
+        <h3 class="insight-title">Next.js 15 ile App Router: Tam Rehber</h3>
+        <p class="insight-excerpt">Server Components, Streaming ve Suspense boundary'lerinin gerçek dünya performans etkilerini inceledik.</p>
+        <a href="insight-detail.html?slug=nextjs-15-app-router" class="insight-link">Devamını Oku →</a>
+    </article>
+
+    <article class="insight-card">
+        <div class="insight-meta">
+            <span class="insight-tag">SEO</span>
+            <span class="insight-date">02 May 2026</span>
+        </div>
+        <h3 class="insight-title">Core Web Vitals ve Sıralama: 2026 Güncellemesi</h3>
+        <p class="insight-excerpt">INP metriğinin LCP ve CLS ile birlikte nasıl değerlendirildiğini ve optimize stratejilerini açıklıyoruz.</p>
+        <a href="insight-detail.html?slug=core-web-vitals-2026" class="insight-link">Devamını Oku →</a>
+    </article>
+
+    <article class="insight-card">
+        <div class="insight-meta">
+            <span class="insight-tag">Strateji</span>
+            <span class="insight-date">18 Nis 2026</span>
+        </div>
+        <h3 class="insight-title">Küçük İşletmeler İçin Dijital Dönüşüm Rehberi</h3>
+        <p class="insight-excerpt">Sınırlı bütçeyle maksimum etki yaratan dijital stratejiler ve araç önerileri.</p>
+        <a href="insight-detail.html?slug=kucuk-isletmeler-dijital-donusum" class="insight-link">Devamını Oku →</a>
+    </article>
+</div>
+
+            <div class="insights-footer">
+                <a href="insights.html" class="btn btn-secondary">Tüm Yazılar →</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header section-header--center">
+                <span class="section-eyebrow">SSS</span>
+                <h2 class="section-title">Sıkça sorulan sorular</h2>
+            </div>
+
+            <div class="faq-list">
+                <details class="faq-item">
+                    <summary class="faq-question">
+                        <span>Bir projenin süresi ne kadar?</span>
+                        <span class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>Proje kapsamına göre değişir. Kurumsal bir web sitesi ortalama 4-6 hafta, kapsamlı bir e-ticaret platformu ise 8-12 hafta sürer. Her projeye önce bir keşif aşaması uygularız ve net bir zaman çizelgesi sunarız.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-question">
+                        <span>Hangi teknolojileri kullanıyorsunuz?</span>
+                        <span class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>Frontend'de React, Next.js, Vue; backend'de Node.js, Python; mobil'de React Native kullanıyoruz. CMS olarak Strapi, Sanity veya headless WordPress tercih ediyoruz. Her projenin ihtiyacına göre en uygun stack'i belirliyoruz.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-question">
+                        <span>SEO çalışmaları ne kadar sürede sonuç verir?</span>
+                        <span class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>Teknik SEO düzenlemeleri genellikle ilk ay içinde etkisini gösterir. Organik sıralama yükselişleri ise 3-6 ay içinde belirgin hale gelir. SEO bir maraton, sprint değildir; sürekli optimizasyon gerektirir.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-question">
+                        <span>Proje sonrası destek sağlıyor musunuz?</span>
+                        <span class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>Evet. Tüm projelerimizde 30 günlük garanti süresi sunuyoruz. Ayrıca aylık bakım paketlerimizle güvenlik güncellemeleri, performans izleme ve içerik desteği sağlıyoruz.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-question">
+                        <span>Fiyatlandırma nasıl yapılıyor?</span>
+                        <span class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>Keşif aşamasından sonra proje kapsamına göre sabit fiyat teklifi sunuyoruz. Aylık retainer modeliyle devam eden SEO ve medya hizmetlerimiz de mevcut. İlk görüşme ücretsizdir.</p>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-layout">
+                <div class="contact-info">
+                    <span class="section-eyebrow">İletişim</span>
+                    <h2 class="section-title">Projenizi konuşalım.</h2>
+                    <p class="contact-desc">
+                        Fikir aşamasında olun ya da mevcut sisteminizi revize ettirmek 
+                        isteyin; ilk adım bir mesaj atmak.
+                    </p>
+
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <span class="contact-label">E-posta</span>
+                            <a href="mailto:hello@ckrtech.com" class="contact-value">hello@ckrtech.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Telefon</span>
+                            <a href="tel:+905346921987" class="contact-value">+90 534 692 1987</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Konum</span>
+                            <span class="contact-value">Akhisar, Manisa — Türkiye</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Çalışma Saatleri</span>
+                            <span class="contact-value">Pzt-Cum: 09:00 - 18:00</span>
+                        </div>
+                    </div>
+
+                    <div class="contact-social">
+                        <a href="https://instagram.com/ckr.tech" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">Instagram</a>
+                        <a href="https://wa.me/905346921987" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="WhatsApp">WhatsApp</a>
+                    </div>
+                </div>
+
+                <form class="contact-form" id="contactForm" action="https://formspree.io/f/mvzyqwwd" method="POST" novalidate>
+                    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+                    <input type="hidden" name="_subject" value="Yeni iletişim formu gönderimi — CKR TECH">
+
+                    <div class="form-group">
+                        <label for="name" class="form-label">İsim</label>
+                        <input type="text" id="name" name="name" class="form-input" placeholder="Adınız" required maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="form-label">E-posta</label>
+                        <input type="email" id="email" name="email" class="form-input" placeholder="ornek@mail.com" required maxlength="254">
+                    </div>
+                    <div class="form-group">
+                        <label for="company" class="form-label">Şirket (Opsiyonel)</label>
+                        <input type="text" id="company" name="company" class="form-input" placeholder="Şirket adı" maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="service" class="form-label">Hizmet</label>
+                        <select id="service" name="service" class="form-input form-select">
+                            <option value="">Hizmet seçin</option>
+                            <option value="web">Web Geliştirme</option>
+                            <option value="seo">SEO & Analitik</option>
+                            <option value="media">Dijital Medya</option>
+                            <option value="other">Diğer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="budget" class="form-label">Bütçe Aralığı</label>
+                        <select id="budget" name="budget" class="form-input form-select">
+                            <option value="">Seçin</option>
+                            <option value="15-30">₺15.000 - ₺30.000</option>
+                            <option value="30-60">₺30.000 - ₺60.000</option>
+                            <option value="60+">₺60.000+</option>
+                            <option value="unknown">Henüz bilmiyorum</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="form-label">Mesaj</label>
+                        <textarea id="message" name="message" class="form-input form-textarea" placeholder="Projenizden kısaca bahsedin..." rows="4" maxlength="2000"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full" id="submitBtn">Gönder</button>
+
+                    <p class="form-security-note">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        Formspree spam koruması ve Honeypot aktiftir. Verileriniz KVKK kapsamında korunur.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer-layout">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <span class="logo-text">CKR</span><span class="logo-accent">TECH</span>
+                    </a>
+                    <p class="footer-copy">Dijital teknoloji, yazılım ve strateji ajansı. Akhisar'dan globale.</p>
+                    <div class="footer-social">
+                        <a href="https://instagram.com/ckr.tech" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">Instagram</a>
+                        <a href="https://wa.me/905346921987" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="WhatsApp">WhatsApp</a>
+                    </div>
+                </div>
+
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <h4 class="footer-column-title">Hizmetler</h4>
+                        <nav class="footer-nav">
+                            <a href="index.html#services" class="footer-link">Web Geliştirme</a>
+                            <a href="index.html#services" class="footer-link">SEO & Analitik</a>
+                            <a href="index.html#services" class="footer-link">Dijital Medya</a>
+                        </nav>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4 class="footer-column-title">Şirket</h4>
+                        <nav class="footer-nav">
+                            <a href="index.html#vision" class="footer-link">Hakkımızda</a>
+                            <a href="index.html#team" class="footer-link">Ekip</a>
+                            <a href="insights.html" class="footer-link">Blog</a>
+                            <a href="#" class="footer-link">Kariyer</a>
+                        </nav>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4 class="footer-column-title">Yasal</h4>
+                        <nav class="footer-nav">
+                            <a href="privacy-policy.html" class="footer-link">Gizlilik Politikası</a>
+                            <a href="terms.html" class="footer-link">KVKK Aydınlatma</a>
+                            <a href="terms.html" class="footer-link">Kullanım Koşulları</a>
+                            <a href="privacy-policy.html#cookies" class="footer-link">Çerez Politikası</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span class="footer-copyright">© 2026 CKR TECH. Tüm hakları saklıdır.</span>
+                <span class="footer-location">Akhisar, Manisa — TR</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

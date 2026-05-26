@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayfa Bulunamadı — CKR TECH</title>
+    <meta name="description" content="Aradığınız sayfa bulunamadı. Ana sayfaya yönlendirilebilir veya arama yapabilirsiniz.">
+    <meta name="robots" content="noindex, follow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" as="style">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+
+    <div class="grain-overlay"></div>
+
+    <div class="cmd-palette" id="cmdPalette" role="dialog" aria-modal="true" aria-labelledby="cmdTitle" hidden>
+        <div class="cmd-palette-backdrop" id="cmdBackdrop"></div>
+        <div class="cmd-palette-modal">
+            <div class="cmd-palette-header">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" class="cmd-palette-input" id="cmdInput" placeholder="Komut veya bölüm ara..." autocomplete="off">
+                <kbd class="cmd-kbd">ESC</kbd>
+            </div>
+            <div class="cmd-palette-body" id="cmdBody">
+                <div class="cmd-group">
+                    <span class="cmd-group-label">Navigasyon</span>
+                    <button class="cmd-item" data-action="navigate" data-url="index.html"><span class="cmd-icon">→</span><span class="cmd-text">Ana Sayfa</span><span class="cmd-hint">index.html</span></button>
+                    <button class="cmd-item" data-action="navigate" data-url="insights.html"><span class="cmd-icon">→</span><span class="cmd-text">Blog</span><span class="cmd-hint">insights.html</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header class="site-header" id="header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><span class="logo-text">CKR</span><span class="logo-accent">TECH</span></a>
+            <nav class="main-nav" id="mainNav">
+                <a href="index.html#services" class="nav-link">Hizmetler</a>
+                <a href="index.html#portfolio" class="nav-link">Portfolyo</a>
+                <a href="index.html#pricing" class="nav-link">Fiyatlandırma</a>
+                <a href="insights.html" class="nav-link">Blog</a>
+                <a href="index.html#contact" class="nav-link nav-link--cta">İletişim</a>
+                <button class="nav-kbd" id="navKbdTrigger" aria-label="Komut paleti aç"><kbd>⌘</kbd><kbd>K</kbd></button>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menü"><span></span><span></span><span></span></button>
+        </div>
+    </header>
+
+    <main class="error-page">
+        <div class="error-code">404</div>
+        <h1 class="error-title">Sayfa Bulunamadı</h1>
+        <p class="error-desc">Aradığınız sayfa taşınmış, silinmiş veya hiç var olmamış olabilir. Ana sayfaya dönerek devam edebilirsiniz.</p>
+        <div style="display:flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+            <a href="index.html" class="btn btn-primary">Ana Sayfaya Dön</a>
+            <a href="insights.html" class="btn btn-secondary">Blog'a Git</a>
+        </div>
+    </main>
+
+    <footer class="footer" id="footer" style="padding-top: 2rem;">
+        <div class="container">
+            <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+                <span class="footer-copyright">© 2026 CKR TECH. Tüm hakları saklıdır.</span>
+                <span class="footer-location">Akhisar, Manisa — TR</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
